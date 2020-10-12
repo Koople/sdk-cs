@@ -3,7 +3,8 @@ using fflags_sdk_cs.Values;
 
 namespace fflags_sdk_cs
 {
-    public class PfUserAttribute {
+    public class PfUserAttribute
+    {
         public readonly string Name;
         public readonly object Value;
 
@@ -13,10 +14,15 @@ namespace fflags_sdk_cs
             Value = value;
         }
     }
-    
+
     public class PfUser
     {
         public readonly string Identity;
         public readonly Dictionary<string, PfValue<object>> Attributes;
+
+        public PfValue<object> GetValue(string attr)
+        {
+            return Attributes[attr];
+        }
     }
 }
