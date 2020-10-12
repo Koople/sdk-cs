@@ -3,26 +3,25 @@ using fflags_sdk_cs.Values;
 
 namespace fflags_sdk_cs
 {
-    public class PfUserAttribute
-    {
-        public readonly string Name;
-        public readonly object Value;
-
-        public PfUserAttribute(string name, object value)
-        {
-            Name = name;
-            Value = value;
-        }
-    }
-
     public class PfUser
     {
-        public readonly string Identity;
-        public readonly Dictionary<string, PfValue<object>> Attributes;
+        private readonly string _identity;
+        private readonly Dictionary<string, PfValue<object>> _attributes;
 
-        public PfValue<object> GetValue(string attr)
+        public PfUser(string identity, Dictionary<string, PfValue<object>> attributes)
         {
-            return Attributes[attr];
+            _identity = identity;
+            _attributes = attributes;
         }
+
+        public string GetIdentity() => _identity;
+
+        public IPfValue GetValue(string attr) => _attributes[attr];
+
+        public PfStringValue GetStringValue(string attr) => _attributes[attr]?.AsString();
+        
+        public PfBooleanValue GetBooleanValue(string attr) => _attributes[attr]?.AsBoolean();
+        
+        public PfNumberValue GetNumberValue(string attr) => _attributes[attr]?.AsNumber();
     }
 }

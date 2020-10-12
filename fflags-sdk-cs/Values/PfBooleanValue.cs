@@ -16,12 +16,12 @@ namespace fflags_sdk_cs.Values
 
         public bool IsTruthy()
         {
-            return _value;
+            return Value;
         }
 
         public bool IsFalsy()
         {
-            return !_value;
+            return !Value;
         }
     }
 }

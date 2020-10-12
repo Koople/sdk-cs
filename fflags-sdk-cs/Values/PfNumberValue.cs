@@ -7,23 +7,23 @@ namespace fflags_sdk_cs.Values
         }
 
         public bool GreaterThan(PfNumberValue other) {
-            return _value > other._value;
+            return Value > other.Value;
         }
 
         public bool GreaterThanOrEquals(PfNumberValue other) {
-            return _value >= other._value;
+            return Value >= other.Value;
         }
 
         public bool LessThan(PfNumberValue other) {
-            return _value < other._value;
+            return Value < other.Value;
         }
 
         public bool LessThanOrEquals(PfNumberValue other) {
-            return _value <= other._value;
+            return Value <= other.Value;
         }
 
         public bool Equals(PfNumberValue other) {
-            return _value == other._value;
+            return Value == other.Value;
         }
 
         public bool NotEquals(PfNumberValue other)

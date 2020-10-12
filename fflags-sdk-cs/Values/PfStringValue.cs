@@ -9,7 +9,7 @@ namespace fflags_sdk_cs.Values
         }
 
         public bool IsEmpty() {
-            return string.IsNullOrEmpty(_value.Trim());
+            return string.IsNullOrEmpty(Value.Trim());
         }
 
         public bool IsNotEmpty() {
@@ -18,11 +18,11 @@ namespace fflags_sdk_cs.Values
 
         public bool Contains(PfStringValue other)
         {
-            return _value.Contains(other._value);
+            return Value.Contains(other.Value);
         }
 
         public bool Equals(PfStringValue other) {
-            return _value == other._value;
+            return Value == other.Value;
         }
 
         public bool NotEquals(PfStringValue other)
