@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using fflags_sdk_cs.Values;
+using fflags_sdk_cs.Evaluator.Values;
 
-namespace fflags_sdk_cs
+namespace fflags_sdk_cs.Evaluator
 {
     public abstract class PfStatement<T> : IPfEvaluable
         where T : IPfValue

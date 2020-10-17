@@ -1,13 +1,18 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace fflags_sdk_cs
 {
     public enum PfTargeting
     {
+        [EnumMember(Value = "DISABLED_FOR_ALL")]
         DisabledForAll,
+
+        [EnumMember(Value = "ENABLED_FOR_SOME_USERS")]
         EnabledForSomeUsers,
+
+        [EnumMember(Value = "ENABLED_FOR_ALL")]
         EnabledForAll
     }
 

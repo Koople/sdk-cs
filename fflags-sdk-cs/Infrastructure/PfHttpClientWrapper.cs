@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -39,7 +38,6 @@ namespace fflags_sdk_cs.Infrastructure
                 RequestUri = httpRequest.GetUri()
             };
             var body = _httpClient.SendAsync(request);
-
             var jsonResponse = await body.Result.Content.ReadAsStringAsync();
             return JsonConvert.DeserializeObject<T>(jsonResponse);
         }

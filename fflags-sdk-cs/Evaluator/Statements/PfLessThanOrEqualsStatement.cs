@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using fflags_sdk_cs.Values;
 
-namespace fflags_sdk_cs.Statements
+namespace fflags_sdk_cs.Evaluator.Statements
 {
-    public class LessThanOrEquals : PfStatement<PfNumberValue>
+    public class PfLessThanOrEqualsStatement : PfStatement<PfNumberValue>
     {
-        public LessThanOrEquals(string attribute, IEnumerable<PfNumberValue> values) : base(attribute, values)
+        public PfLessThanOrEqualsStatement(string attribute, IEnumerable<PfNumberValue> values) : base(attribute, values)
         {
         }
 

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using fflags_sdk_cs.Evaluator.Values;
 using fflags_sdk_cs.Values;
 
 namespace fflags_sdk_cs
@@ -44,7 +45,7 @@ namespace fflags_sdk_cs
 
         public static PfUser Create(string identity, IEnumerable<PfUserAttribute> attributes)
         {
-            var pfValues = attributes.ToDictionary(x => x.Name, value => PfValue<object>.Create(value.Value));
+            var pfValues = attributes.ToDictionary(x => x.Name, value => IPfValue.Create(value.Value));
             return new PfUser(identity, pfValues);
         }
     }

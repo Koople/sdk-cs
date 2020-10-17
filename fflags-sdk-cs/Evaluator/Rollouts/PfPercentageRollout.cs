@@ -8,6 +8,10 @@ namespace fflags_sdk_cs
     {
         private readonly int _percentage;
 
+        public PfPercentageRollout()
+        {
+        }
+
         private PfPercentageRollout(int percentage)
         {
             _percentage = percentage;

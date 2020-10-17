@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using fflags_sdk_cs;
-using fflags_sdk_cs.Statements;
+using fflags_sdk_cs.Evaluator.Statements;
 using fflags_sdk_cs.Values;
 using FluentAssertions;
 using Xunit;

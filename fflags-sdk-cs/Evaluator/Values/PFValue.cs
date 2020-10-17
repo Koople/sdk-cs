@@ -1,17 +1,32 @@
 using System;
+using fflags_sdk_cs.Values;
+using JsonSubTypes;
+using Newtonsoft.Json;
 
-namespace fflags_sdk_cs.Values
+namespace fflags_sdk_cs.Evaluator.Values
 {
-    public interface IPfValue
+    [JsonConverter(typeof(JsonSubtypes), "type")]
+    [JsonSubtypes.KnownSubTypeAttribute(typeof(PfStringValue), "string")]
+    [JsonSubtypes.KnownSubTypeAttribute(typeof(PfNumberValue), "number")]
+    [JsonSubtypes.KnownSubTypeAttribute(typeof(PfSegmentValue), "segment")]
+    public abstract class IPfValue
     {
-        bool IsEquals(IPfValue other);
-        bool NotEquals(IPfValue other);
+        public abstract bool IsEquals(IPfValue other);
+        public abstract bool NotEquals(IPfValue other);
 
-        object GetValue();
+        public abstract object GetValue();
 
-        PfStringValue AsString();
-        PfNumberValue AsNumber();
-        PfBooleanValue AsBoolean();
+        public abstract PfStringValue AsString();
+        public abstract PfNumberValue AsNumber();
+        public abstract PfBooleanValue AsBoolean();
+
+        public static IPfValue Create(object value) => value switch
+        {
+            bool boolValue => new PfBooleanValue(boolValue),
+            string stringValue => new PfStringValue(stringValue),
+            int intValue => new PfNumberValue(intValue),
+            _ => throw new UserAttributeTypeNotSupportedException()
+        };
     }
 
     public class UserAttributeTypeNotSupportedException : Exception
@@ -27,9 +42,9 @@ namespace fflags_sdk_cs.Values
             Value = value;
         }
 
-        public object GetValue() => Value;
+        public override object GetValue() => Value;
 
-        public PfStringValue AsString()
+        public override PfStringValue AsString()
         {
             if (GetType() == typeof(PfStringValue))
                 return this as PfStringValue;
@@ -37,7 +52,7 @@ namespace fflags_sdk_cs.Values
             return null;
         }
 
-        public PfNumberValue AsNumber()
+        public override PfNumberValue AsNumber()
         {
             if (GetType() == typeof(PfNumberValue))
                 return this as PfNumberValue;
@@ -45,7 +60,7 @@ namespace fflags_sdk_cs.Values
             return null;
         }
 
-        public PfBooleanValue AsBoolean()
+        public override PfBooleanValue AsBoolean()
         {
             if (GetType() == typeof(PfBooleanValue))
                 return this as PfBooleanValue;
@@ -53,16 +68,8 @@ namespace fflags_sdk_cs.Values
             return null;
         }
 
-        public bool IsEquals(IPfValue other) => GetType() == other.GetType() && Value.Equals(other.GetValue());
+        public override bool IsEquals(IPfValue other) => GetType() == other.GetType() && Value.Equals(other.GetValue());
 
-        public bool NotEquals(IPfValue other) => !Equals(other);
-
-        public static IPfValue Create(object value) => value switch
-        {
-            bool boolValue => new PfBooleanValue(boolValue),
-            string stringValue => new PfStringValue(stringValue),
-            int intValue => new PfNumberValue(intValue),
-            _ => throw new UserAttributeTypeNotSupportedException()
-        };
+        public override bool NotEquals(IPfValue other) => !Equals(other);
     }
 }

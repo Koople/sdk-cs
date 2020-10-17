@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using fflags_sdk_cs.Values;
 
-namespace fflags_sdk_cs.Statements
+namespace fflags_sdk_cs.Evaluator.Statements
 {
     public class PfGreaterThanStatement : PfStatement<PfNumberValue>
     {

@@ -1,7 +1,6 @@
-using System.Collections.Generic;
 using fflags_sdk_cs.Values;
 
-namespace fflags_sdk_cs.Statements
+namespace fflags_sdk_cs.Evaluator.Statements
 {
     public class PfIsTruthyStatement : PfStatement<PfBooleanValue>
     {

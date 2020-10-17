@@ -1,5 +1,4 @@
 using System;
-using System.Net.Http.Headers;
 
 namespace fflags_sdk_cs
 {
@@ -16,10 +15,10 @@ namespace fflags_sdk_cs
         {
             return _apiKey;
         }
-        
+
         public Uri GetUri()
         {
-            return new Uri("https://sdk.pataflags.com");
+            return new Uri("https://sdk.pataflags.com/proxy/server/initialize");
         }
     }
 }

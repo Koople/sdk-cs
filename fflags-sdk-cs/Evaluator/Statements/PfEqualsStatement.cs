@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using fflags_sdk_cs.Values;
+using fflags_sdk_cs.Evaluator.Values;
 
-namespace fflags_sdk_cs.Statements
+namespace fflags_sdk_cs.Evaluator.Statements
 {
     public class PfEqualsStatement : PfStatement<IPfValue>
     {

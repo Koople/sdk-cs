@@ -1,27 +1,27 @@
+using fflags_sdk_cs.Evaluator.Values;
 using fflags_sdk_cs.Values;
-using FluentAssertions;
 using Xunit;
 
-namespace fflags_sdk_cs_test.Values
+namespace fflags_sdk_cs_test.Evaluator.Values
 {
     public class PfValueTest
     {
         [Fact]
         public void Boolean_Value()
         {
-            Assert.IsType<PfBooleanValue>(PfValue<object>.Create(true));
+            Assert.IsType<PfBooleanValue>(IPfValue.Create(true));
         }
         
         [Fact]
         public void String_Value()
         {
-            Assert.IsType<PfStringValue>(PfValue<object>.Create("abc"));
+            Assert.IsType<PfStringValue>(IPfValue.Create("abc"));
         }
         
         [Fact]
         public void Number_Value()
         {
-            Assert.IsType<PfNumberValue>(PfValue<object>.Create(1));
+            Assert.IsType<PfNumberValue>(IPfValue.Create(1));
         }
     }
 }

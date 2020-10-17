@@ -8,7 +8,7 @@ namespace fflags_sdk_cs
         private readonly PfStore _store;
         private PfEvaluator _evaluator;
 
-        public PfClient(PfStore store)
+        private PfClient(PfStore store)
         {
             _store = store;
             _evaluator = PfEvaluator.Create(store);
@@ -17,6 +17,11 @@ namespace fflags_sdk_cs
         public bool IsEnabled(string feature, PfUser user)
         {
             return _evaluator.Evaluate(feature, user);
+        }
+
+        public PfEvaluationResult EvaluatedFeaturesForUser(PfUser user)
+        {
+            return _evaluator.Evaluate(user);
         }
 
         public static async Task<PfClient> Initialize(string apiKey)

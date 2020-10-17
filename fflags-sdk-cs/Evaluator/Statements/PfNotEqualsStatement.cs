@@ -1,11 +1,11 @@
 using System.Collections.Generic;
-using fflags_sdk_cs.Values;
+using fflags_sdk_cs.Evaluator.Values;
 
-namespace fflags_sdk_cs.Statements
+namespace fflags_sdk_cs.Evaluator.Statements
 {
     public class PfNotEqualsStatement : PfEqualsStatement
     {
-        public PfNotEqualsStatement(string attribute, IEnumerable<PfValue<object>> values) : base(attribute, values)
+        public PfNotEqualsStatement(string attribute, IEnumerable<IPfValue> values) : base(attribute, values)
         {
         }
 
