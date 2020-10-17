@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using fflags_sdk_cs;
 using fflags_sdk_cs.Evaluator;
+using fflags_sdk_cs.Evaluator.Rules;
 using fflags_sdk_cs.Evaluator.Statements;
 using fflags_sdk_cs.Evaluator.Values;
 using fflags_sdk_cs.Statements;
 using fflags_sdk_cs.Values;
 
-namespace fflags_sdk_cs_test
+namespace fflags_sdk_cs_test.Evaluator
 {
     public class Fixture
     {
@@ -71,6 +72,7 @@ namespace fflags_sdk_cs_test
                 new PfFeatureFlag("enabledForAll", PfTargeting.EnabledForAll, new string[] { }, new PfInlineRule[] { },
                     false, PfPercentageRollout.Create(100)),
             },
+            new PfRemoteConfig[] { },
             new List<PfSegment> {EeuuAdults, SpainAdults}
         );
 
@@ -189,31 +191,42 @@ namespace fflags_sdk_cs_test
             }, true, PfPercentageRollout.Create(100));
 
         public static PfFeatureFlag fifty_percent_feature = new PfFeatureFlag("fifty_percent_feature",
-            PfTargeting.EnabledForSomeUsers, new string[] { }, new [] { new PfInlineRule(0, new []{ new PfSegmentMatchStatement(new []{ new PfSegmentValue(adults_segment.Key) }) })  }, true,
+            PfTargeting.EnabledForSomeUsers, new string[] { },
+            new[]
+            {
+                new PfInlineRule(0, new[] {new PfSegmentMatchStatement(new[] {new PfSegmentValue(adults_segment.Key)})})
+            }, true,
             PfPercentageRollout.Create(50));
 
         public static PfFeatureFlag empty_feature = new PfFeatureFlag("empty_feature", PfTargeting.EnabledForSomeUsers,
             new string[] { }, new PfInlineRule[] { }, false, PfPercentageRollout.Create(0));
 
-        // public static PFRemoteConfig roles_remoteConfig = new PFRemoteConfig("roles", new List<PFRemoteConfigRule>(), "GUEST");
+        public static PfRemoteConfig roles_remoteConfig = new PfRemoteConfig("roles", new[]
+        {
+            new PfRemoteConfigRule(new [] {"ivana"}, new PfInlineRule[] { }, "COLLABORATOR"),
+            new PfRemoteConfigRule(new [] {"ogalindo"}, new PfInlineRule[] { }, "ADMIN")
+        }, "GUEST");
 
-        public static PfStore store = new PfInMemoryStore(new []
-        {
-            enabled_for_all_feature,
-            disabled_for_all_feature,
-            enabled_for_himself_feature,
-            enabled_for_spain_or_eeuu_feature,
-            premium_feature,
-            non_premium_feature,
-            fifty_percent_feature
-        }, new []
-        {
-            spain_segment,
-            italy_segment,
-            eeuu_segment,
-            adults_segment,
-            premium_segment,
-            non_premium_segment
-        });
+        public static PfStore store = new PfInMemoryStore(
+            new[]
+            {
+                enabled_for_all_feature,
+                disabled_for_all_feature,
+                enabled_for_himself_feature,
+                enabled_for_spain_or_eeuu_feature,
+                premium_feature,
+                non_premium_feature,
+                fifty_percent_feature
+            },
+            new[] {roles_remoteConfig},
+            new[]
+            {
+                spain_segment,
+                italy_segment,
+                eeuu_segment,
+                adults_segment,
+                premium_segment,
+                non_premium_segment
+            });
     }
 }

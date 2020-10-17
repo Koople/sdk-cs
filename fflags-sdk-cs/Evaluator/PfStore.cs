@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using fflags_sdk_cs.Evaluator;
 using fflags_sdk_cs.Infrastructure;
 
 namespace fflags_sdk_cs
@@ -17,11 +18,14 @@ namespace fflags_sdk_cs
     {
         private readonly Dictionary<string, PfSegment> _segments;
         private Dictionary<string, PfFeatureFlag> _featureFlags;
+        private static Dictionary<string, PfRemoteConfig> _remoteConfigs;
 
-        public PfInMemoryStore(IEnumerable<PfFeatureFlag> featureFlags, IEnumerable<PfSegment> segments)
+        public PfInMemoryStore(IEnumerable<PfFeatureFlag> featureFlags, IEnumerable<PfRemoteConfig> remoteConfigs,
+            IEnumerable<PfSegment> segments)
         {
             _segments = segments.ToDictionary(s => s.Key);
             _featureFlags = featureFlags.ToDictionary(ff => ff.Key);
+            _remoteConfigs = remoteConfigs.ToDictionary(rc => rc.Key);
         }
 
         public override IEnumerable<PfFeatureFlag> GetFeatureFlags() => _featureFlags.Values;
@@ -30,6 +34,6 @@ namespace fflags_sdk_cs
         public override PfFeatureFlag GetFeatureFlag(string feature) => _featureFlags.GetValueOrDefault(feature);
 
         public static PfStore FromServer(PfServerInitializeResponseDto dto) =>
-            new PfInMemoryStore(dto.Features, dto.Segments);
+            new PfInMemoryStore(dto.Features, dto.RemoteConfigs, dto.Segments);
     }
 }

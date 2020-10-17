@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using fflags_sdk_cs.Evaluator;
 
 namespace fflags_sdk_cs
 {
@@ -22,8 +23,8 @@ namespace fflags_sdk_cs
             _store = store;
         }
 
-        public static PfEvaluator Create(IEnumerable<PfFeatureFlag> featureFlags, IEnumerable<PfSegment> segments) =>
-            new PfEvaluator(new PfInMemoryStore(featureFlags, segments));
+        public static PfEvaluator Create(IEnumerable<PfFeatureFlag> featureFlags, IEnumerable<PfRemoteConfig> remoteConfigs, IEnumerable<PfSegment> segments) =>
+            new PfEvaluator(new PfInMemoryStore(featureFlags, remoteConfigs, segments));
 
         public static PfEvaluator Create(PfStore store) => new PfEvaluator(store);
 
