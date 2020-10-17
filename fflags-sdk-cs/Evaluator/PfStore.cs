@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using fflags_sdk_cs.Infrastructure;
 
 namespace fflags_sdk_cs
 {
@@ -8,6 +9,8 @@ namespace fflags_sdk_cs
         public abstract IEnumerable<PfFeatureFlag> GetFeatureFlags();
 
         public abstract PfSegment FindSegmentByKey(string key);
+
+        public abstract PfFeatureFlag GetFeatureFlag(string feature);
     }
 
     public class PfInMemoryStore : PfStore
@@ -24,5 +27,9 @@ namespace fflags_sdk_cs
         public override IEnumerable<PfFeatureFlag> GetFeatureFlags() => _featureFlags.Values;
 
         public override PfSegment FindSegmentByKey(string key) => _segments[key];
+        public override PfFeatureFlag GetFeatureFlag(string feature) => _featureFlags.GetValueOrDefault(feature);
+
+        public static PfStore FromServer(PfServerInitializeResponseDto dto) =>
+            new PfInMemoryStore(dto.Features, dto.Segments);
     }
 }

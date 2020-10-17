@@ -32,5 +32,8 @@ namespace fflags_sdk_cs
             var evaluatedFlags = _store.GetFeatureFlags().ToDictionary(x => x.Key, flag => flag.Evaluate(_store, user));
             return new PfEvaluationResult(evaluatedFlags);
         }
+
+        public bool Evaluate(string feature, PfUser user) =>
+            _store.GetFeatureFlag(feature)?.Evaluate(_store, user) ?? false;
     }
 }

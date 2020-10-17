@@ -26,5 +26,25 @@ namespace fflags_sdk_cs_test
             
             result.Should().BeEquivalentTo(expected);
         }
+        
+        [Fact]
+        public void Feature_false_evaluation()
+        {
+            var sut = PfEvaluator.Create(Fixture.Store);
+
+            var result = sut.Evaluate("disabledForAll", Fixture.TestUser);
+
+            result.Should().BeFalse();
+        }
+        
+        [Fact]
+        public void Feature_true_evaluation()
+        {
+            var sut = PfEvaluator.Create(Fixture.Store);
+
+            var result = sut.Evaluate("enabledForAll", Fixture.TestUser);
+
+            result.Should().BeTrue();
+        }
     }
 }
