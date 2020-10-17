@@ -24,21 +24,20 @@ namespace fflags_sdk_cs
             return new PfPercentageRollout(percentage);
         }
 
-        private uint HashValue(string identifier)
+        private int HashValue(string identifier)
         {
             var sha1 = new SHA1Managed();
-            var plaintextBytes = Encoding.UTF8.GetBytes(identifier);
-            var hashBytes = sha1.ComputeHash(plaintextBytes);
+            var hashBytes = sha1.ComputeHash(Encoding.UTF8.GetBytes(identifier));
 
             var sb = new StringBuilder();
             foreach (var hashByte in hashBytes)
             {
-                sb.AppendFormat("{0:x2}", hashByte);
+                sb.Append(hashByte.ToString("x2"));
             }
 
-            var str = sb.ToString();
+            var str = sb.ToString().Substring(0, 7);
 
-            return uint.Parse(str, NumberStyles.HexNumber) % 100;
+            return int.Parse(str, NumberStyles.HexNumber) % 100;
         }
     }
 }

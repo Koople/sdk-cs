@@ -1,5 +1,3 @@
-using System;
-
 namespace fflags_sdk_cs.Values
 {
     public class PfStringValue : PfValue<string>

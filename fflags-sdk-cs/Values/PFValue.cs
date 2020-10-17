@@ -4,6 +4,14 @@ namespace fflags_sdk_cs.Values
 {
     public interface IPfValue
     {
+        bool IsEquals(IPfValue other);
+        bool NotEquals(IPfValue other);
+
+        object GetValue();
+
+        PfStringValue AsString();
+        PfNumberValue AsNumber();
+        PfBooleanValue AsBoolean();
     }
 
     public class UserAttributeTypeNotSupportedException : Exception
@@ -18,6 +26,8 @@ namespace fflags_sdk_cs.Values
         {
             Value = value;
         }
+
+        public object GetValue() => Value;
 
         public PfStringValue AsString()
         {
@@ -43,9 +53,9 @@ namespace fflags_sdk_cs.Values
             return null;
         }
 
-        public bool Equals(PfValue<object> other) => GetType() == other.GetType() && Value.Equals(other.Value);
+        public bool IsEquals(IPfValue other) => GetType() == other.GetType() && Value.Equals(other.GetValue());
 
-        public bool NotEquals(PfValue<object> other) => !Equals(other);
+        public bool NotEquals(IPfValue other) => !Equals(other);
 
         public static IPfValue Create(object value) => value switch
         {
