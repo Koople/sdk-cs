@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using fflags_sdk_cs.Infrastructure;
 
@@ -22,6 +23,11 @@ namespace fflags_sdk_cs
         public PfEvaluationResult EvaluatedFeaturesForUser(PfUser user)
         {
             return _evaluator.Evaluate(user);
+        }
+
+        public string ValueOf(string remoteConfig, PfUser user, string defaultValue = "")
+        {
+            return _evaluator.ValueOf(remoteConfig, user, defaultValue);
         }
 
         public static async Task<PfClient> Initialize(string apiKey)

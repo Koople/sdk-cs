@@ -23,7 +23,8 @@ namespace fflags_sdk_cs
             _store = store;
         }
 
-        public static PfEvaluator Create(IEnumerable<PfFeatureFlag> featureFlags, IEnumerable<PfRemoteConfig> remoteConfigs, IEnumerable<PfSegment> segments) =>
+        public static PfEvaluator Create(IEnumerable<PfFeatureFlag> featureFlags,
+            IEnumerable<PfRemoteConfig> remoteConfigs, IEnumerable<PfSegment> segments) =>
             new PfEvaluator(new PfInMemoryStore(featureFlags, remoteConfigs, segments));
 
         public static PfEvaluator Create(PfStore store) => new PfEvaluator(store);
@@ -36,5 +37,11 @@ namespace fflags_sdk_cs
 
         public bool Evaluate(string feature, PfUser user) =>
             _store.GetFeatureFlag(feature)?.Evaluate(_store, user) ?? false;
+
+        public string ValueOf(string remoteConfig, PfUser user, string defaultValue)
+        {
+            var rc = _store.GetRemoteConfig(remoteConfig);
+            return rc?.Evaluate(_store, user) ?? defaultValue;
+        }
     }
 }

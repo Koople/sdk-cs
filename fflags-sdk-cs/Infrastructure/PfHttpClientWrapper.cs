@@ -41,6 +41,7 @@ namespace fflags_sdk_cs.Infrastructure
             };
             var body = _httpClient.SendAsync(request);
             var jsonResponse = await body.Result.Content.ReadAsStringAsync();
+            Console.WriteLine(jsonResponse);
             return JsonConvert.DeserializeObject<T>(jsonResponse);
         }
     }

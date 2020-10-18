@@ -12,13 +12,15 @@ namespace fflags_sdk_cs
         public abstract PfSegment FindSegmentByKey(string key);
 
         public abstract PfFeatureFlag GetFeatureFlag(string feature);
+
+        public abstract PfRemoteConfig GetRemoteConfig(string remoteConfig);
     }
 
     public class PfInMemoryStore : PfStore
     {
         private readonly Dictionary<string, PfSegment> _segments;
-        private Dictionary<string, PfFeatureFlag> _featureFlags;
-        private static Dictionary<string, PfRemoteConfig> _remoteConfigs;
+        private readonly Dictionary<string, PfFeatureFlag> _featureFlags;
+        private readonly Dictionary<string, PfRemoteConfig> _remoteConfigs;
 
         public PfInMemoryStore(IEnumerable<PfFeatureFlag> featureFlags, IEnumerable<PfRemoteConfig> remoteConfigs,
             IEnumerable<PfSegment> segments)
@@ -32,6 +34,7 @@ namespace fflags_sdk_cs
 
         public override PfSegment FindSegmentByKey(string key) => _segments[key];
         public override PfFeatureFlag GetFeatureFlag(string feature) => _featureFlags.GetValueOrDefault(feature);
+        public override PfRemoteConfig GetRemoteConfig(string remoteConfig) => _remoteConfigs.GetValueOrDefault(remoteConfig);
 
         public static PfStore FromServer(PfServerInitializeResponseDto dto) =>
             new PfInMemoryStore(dto.Features, dto.RemoteConfigs, dto.Segments);

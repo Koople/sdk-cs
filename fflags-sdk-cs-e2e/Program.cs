@@ -11,7 +11,7 @@ namespace fflags_sdk_cs_e2e
     {
         static async Task Main(string[] args)
         {
-            var client = await PfClient.Initialize("a35f79d1-8a68-4d5b-a49c-d23fd130131d");
+            var client = await PfClient.Initialize("57062777-61bf-4154-94b7-0457a593de53");
             var user = new PfUser("oscar.galindo@csharp.test.com", new Dictionary<string, IPfValue>
             {
                 {"country", IPfValue.Create("spain")},
@@ -19,7 +19,11 @@ namespace fflags_sdk_cs_e2e
             });
 
             var result = client.EvaluatedFeaturesForUser(user);
-            Console.WriteLine(JsonConvert.SerializeObject(result));
+            var rc = client.ValueOf("api-host", user);
+            var nonrc = client.ValueOf("non-existing-host", user, "defaultValueOfNonExisting");
+            Console.WriteLine($"Features {JsonConvert.SerializeObject(result)}");
+            Console.WriteLine($"Remote configs {JsonConvert.SerializeObject(rc)}");
+            Console.WriteLine($"Default Remote configs {JsonConvert.SerializeObject(nonrc)}");
         }
     }
 }

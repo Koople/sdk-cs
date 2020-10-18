@@ -18,7 +18,7 @@ namespace fflags_sdk_cs
 
         public Uri GetUri()
         {
-            return new Uri("https://sdk.pataflags.com/proxy/server/initialize");
+            return new Uri("http://localhost.charlesproxy.com:8080/proxy/server/initialize");
         }
     }
 }
