@@ -16,7 +16,7 @@ namespace fflags_sdk_cs.Infrastructure
 
     public class PfHttpClientWrapper
     {
-        private static readonly Uri SdkApiUrl = new Uri("https://sdk.pataflags.com");
+        private static readonly Uri SdkApiUrl = new Uri("https://sdk.pataflags.com/proxy/server/initialize");
 
         private HttpClient _httpClient;
 
@@ -37,11 +37,10 @@ namespace fflags_sdk_cs.Infrastructure
                     {"x-api-key", httpRequest.GetApiKey()}
                 },
                 Method = HttpMethod.Get,
-                RequestUri = httpRequest.GetUri()
+                RequestUri = SdkApiUrl
             };
             var body = _httpClient.SendAsync(request);
             var jsonResponse = await body.Result.Content.ReadAsStringAsync();
-            Console.WriteLine(jsonResponse);
             return JsonConvert.DeserializeObject<T>(jsonResponse);
         }
     }
