@@ -2,7 +2,11 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <RootNamespace>fflags_sdk_cs</RootNamespace>
+        <Company>patalabs</Company>
+        <PackageId>pataflags-sdk-cs</PackageId>
+        <Version>0.0.1</Version>
     </PropertyGroup>
 
     <ItemGroup>
