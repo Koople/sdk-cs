@@ -18,9 +18,11 @@ namespace fflags_sdk_cs_e2e
                 {"age", IPfValue.Create(18)}
             });
 
+            var single = client.IsEnabled("someFeature", user);
             var result = client.EvaluatedFeaturesForUser(user);
             var rc = client.ValueOf("api-host", user);
             var nonrc = client.ValueOf("non-existing-host", user, "defaultValueOfNonExisting");
+            Console.WriteLine($"Single Feature {JsonConvert.SerializeObject(single)}");
             Console.WriteLine($"Features {JsonConvert.SerializeObject(result)}");
             Console.WriteLine($"Remote configs {JsonConvert.SerializeObject(rc)}");
             Console.WriteLine($"Default Remote configs {JsonConvert.SerializeObject(nonrc)}");
