@@ -28,6 +28,7 @@ namespace fflags_sdk_cs
         public PfEvaluationResult EvaluatedFeaturesForUser(PfUser user) => _evaluator.Evaluate(user);
 
         public bool IsEnabled(string feature, PfUser user) => _evaluator.Evaluate(feature, user);
+        public bool IsEnabled(string feature) => _evaluator.Evaluate(feature, PfUser.Anonymous());
 
         public string ValueOf(string remoteConfig, PfUser user, string defaultValue) =>
             _evaluator.ValueOf(remoteConfig, user, defaultValue);

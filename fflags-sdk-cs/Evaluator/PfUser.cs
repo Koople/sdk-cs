@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using fflags_sdk_cs.Evaluator.Values;
@@ -48,5 +49,7 @@ namespace fflags_sdk_cs
             var pfValues = attributes.ToDictionary(x => x.Name, value => IPfValue.Create(value.Value));
             return new PfUser(identity, pfValues);
         }
+
+        public static PfUser Anonymous() => Create($"anonymous-{Guid.NewGuid().ToString()}");
     }
 }
