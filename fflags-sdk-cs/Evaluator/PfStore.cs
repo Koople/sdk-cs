@@ -38,5 +38,8 @@ namespace fflags_sdk_cs
 
         public static PfStore FromServer(PfServerInitializeResponseDto dto) =>
             new PfInMemoryStore(dto.Features, dto.RemoteConfigs, dto.Segments);
+
+        public static PfInMemoryStore Empty() => 
+            new PfInMemoryStore(new PfFeatureFlag[] {}, new PfRemoteConfig[] {}, new PfSegment[] {});
     }
 }

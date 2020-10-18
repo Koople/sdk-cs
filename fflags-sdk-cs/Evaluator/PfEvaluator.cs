@@ -1,16 +1,15 @@
 using System.Collections.Generic;
 using System.Linq;
-using fflags_sdk_cs.Evaluator;
 
-namespace fflags_sdk_cs
+namespace fflags_sdk_cs.Evaluator
 {
     public class PfEvaluationResult
     {
-        public readonly Dictionary<string, bool> _features;
+        public readonly Dictionary<string, bool> Features;
 
         public PfEvaluationResult(Dictionary<string, bool> features)
         {
-            _features = features;
+            Features = features;
         }
     }
 

@@ -1,42 +1,59 @@
 using System;
-using System.Threading.Tasks;
+using System.Threading;
+using fflags_sdk_cs.Evaluator;
 using fflags_sdk_cs.Infrastructure;
 
 namespace fflags_sdk_cs
 {
-    public class PfClient
+    public class PfClientService
     {
-        private readonly PfStore _store;
+        private string _apiKey;
         private PfEvaluator _evaluator;
 
-        private PfClient(PfStore store)
+        public PfClientService(string apiKey, int pollingInterval = 60)
         {
-            _store = store;
-            _evaluator = PfEvaluator.Create(store);
+            _apiKey = apiKey;
+            var timer = new Timer(FetchStore, null, TimeSpan.Zero, TimeSpan.FromSeconds(pollingInterval));
+            _evaluator = PfEvaluator.Create(PfInMemoryStore.Empty());
         }
 
-        public bool IsEnabled(string feature, PfUser user)
+        private async void FetchStore(object state)
         {
-            return _evaluator.Evaluate(feature, user);
-        }
-
-        public PfEvaluationResult EvaluatedFeaturesForUser(PfUser user)
-        {
-            return _evaluator.Evaluate(user);
-        }
-
-        public string ValueOf(string remoteConfig, PfUser user, string defaultValue = "")
-        {
-            return _evaluator.ValueOf(remoteConfig, user, defaultValue);
-        }
-
-        public static async Task<PfClient> Initialize(string apiKey)
-        {
-            var initializeRequest = new PfHttpRequest(apiKey);
+            var initializeRequest = new PfHttpRequest(_apiKey);
             var httpClient = new PfHttpClientWrapper();
             var serverInitResponse = await httpClient.Get<PfServerInitializeResponseDto>(initializeRequest);
-            var store = PfInMemoryStore.FromServer(serverInitResponse);
-            return new PfClient(store);
+            _evaluator = PfEvaluator.Create(PfInMemoryStore.FromServer(serverInitResponse));
+        }
+
+        public PfEvaluationResult EvaluatedFeaturesForUser(PfUser user) => _evaluator.Evaluate(user);
+
+        public bool IsEnabled(string feature, PfUser user) => _evaluator.Evaluate(feature, user);
+
+        public string ValueOf(string remoteConfig, PfUser user, string defaultValue) =>
+            _evaluator.ValueOf(remoteConfig, user, defaultValue);
+    }
+
+    public class PfClient
+    {
+        private readonly PfClientService _clientService;
+
+        private PfClient(PfClientService clientService)
+        {
+            _clientService = clientService;
+        }
+
+        public bool IsEnabled(string feature, PfUser user) => _clientService.IsEnabled(feature, user);
+
+        public PfEvaluationResult EvaluatedFeaturesForUser(PfUser user) =>
+            _clientService.EvaluatedFeaturesForUser(user);
+
+        public string ValueOf(string remoteConfig, PfUser user, string defaultValue = "") =>
+            _clientService.ValueOf(remoteConfig, user, defaultValue);
+
+        public static PfClient Initialize(string apiKey, int pollingInterval = 60)
+        {
+            var service = new PfClientService(apiKey, pollingInterval);
+            return new PfClient(service);
         }
     }
 }

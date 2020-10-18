@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using fflags_sdk_cs;
 using fflags_sdk_cs.Evaluator.Values;
@@ -9,19 +10,27 @@ namespace fflags_sdk_cs_e2e
 {
     class Program
     {
-        static async Task Main(string[] args)
+        private static PfClient _client;
+
+        static void Main(string[] args)
         {
-            var client = await PfClient.Initialize("57062777-61bf-4154-94b7-0457a593de53");
+            _client = PfClient.Initialize("52c85313-8203-4963-b984-c5d249320a62", 5);
+            var timer = new Timer(PrintData, "auto", 0, 6000);
+            Thread.Sleep(100000);
+        }
+
+        private static void PrintData(object? state)
+        {
             var user = new PfUser("oscar.galindo@csharp.test.com", new Dictionary<string, IPfValue>
             {
                 {"country", IPfValue.Create("spain")},
                 {"age", IPfValue.Create(18)}
             });
 
-            var single = client.IsEnabled("someFeature", user);
-            var result = client.EvaluatedFeaturesForUser(user);
-            var rc = client.ValueOf("api-host", user);
-            var nonrc = client.ValueOf("non-existing-host", user, "defaultValueOfNonExisting");
+            var single = _client.IsEnabled("someFeature", user);
+            var result = _client.EvaluatedFeaturesForUser(user);
+            var rc = _client.ValueOf("sap-user", user);
+            var nonrc = _client.ValueOf("non-existing-host", user, "defaultValueOfNonExisting");
             Console.WriteLine($"Single Feature {JsonConvert.SerializeObject(single)}");
             Console.WriteLine($"Features {JsonConvert.SerializeObject(result)}");
             Console.WriteLine($"Remote configs {JsonConvert.SerializeObject(rc)}");
