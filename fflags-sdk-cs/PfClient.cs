@@ -32,6 +32,9 @@ namespace fflags_sdk_cs
 
         public string ValueOf(string remoteConfig, PfUser user, string defaultValue) =>
             _evaluator.ValueOf(remoteConfig, user, defaultValue);
+        
+        public string ValueOf(string remoteConfig, string defaultValue) =>
+            _evaluator.ValueOf(remoteConfig, PfUser.Anonymous(), defaultValue);
     }
 
     public class PfClient
@@ -52,6 +55,9 @@ namespace fflags_sdk_cs
 
         public string ValueOf(string remoteConfig, PfUser user, string defaultValue = "") =>
             _clientService.ValueOf(remoteConfig, user, defaultValue);
+        
+        public string ValueOf(string remoteConfig, string defaultValue = "") =>
+            _clientService.ValueOf(remoteConfig, defaultValue);
 
         public static PfClient Initialize(string apiKey, int pollingInterval = 60)
         {
