@@ -15,10 +15,5 @@ namespace fflags_sdk_cs
         {
             return _apiKey;
         }
-
-        public Uri GetUri()
-        {
-            return new Uri("http://localhost.charlesproxy.com:8080/proxy/server/initialize");
-        }
     }
 }
