@@ -28,6 +28,7 @@ namespace fflags_sdk_cs_e2e
             });
 
             var single = _client.IsEnabled("someFeature", user);
+            var withoutUser = _client.IsEnabled("someFeature");
             var result = _client.EvaluatedFeaturesForUser(user);
             var rc = _client.ValueOf("sap-user", user);
             var nonrc = _client.ValueOf("non-existing-host", user, "defaultValueOfNonExisting");

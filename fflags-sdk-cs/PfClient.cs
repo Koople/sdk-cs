@@ -44,6 +44,8 @@ namespace fflags_sdk_cs
         }
 
         public bool IsEnabled(string feature, PfUser user) => _clientService.IsEnabled(feature, user);
+        
+        public bool IsEnabled(string feature) => _clientService.IsEnabled(feature);
 
         public PfEvaluationResult EvaluatedFeaturesForUser(PfUser user) =>
             _clientService.EvaluatedFeaturesForUser(user);
