@@ -5,15 +5,16 @@ using fflags_sdk_cs.Infrastructure;
 
 namespace fflags_sdk_cs
 {
-    public class PfClientService
+    public class PfClientService : IDisposable
     {
-        private string _apiKey;
+        private readonly string _apiKey;
+        private readonly Timer _timer;
         private PfEvaluator _evaluator;
 
         public PfClientService(string apiKey, int pollingInterval = 60)
         {
             _apiKey = apiKey;
-            var timer = new Timer(FetchStore, null, TimeSpan.Zero, TimeSpan.FromSeconds(pollingInterval));
+            _timer = new Timer(FetchStore, null, TimeSpan.Zero, TimeSpan.FromSeconds(pollingInterval));
             _evaluator = PfEvaluator.Create(PfInMemoryStore.Empty());
         }
 
@@ -35,6 +36,11 @@ namespace fflags_sdk_cs
         
         public string ValueOf(string remoteConfig, string defaultValue) =>
             _evaluator.ValueOf(remoteConfig, PfUser.Anonymous(), defaultValue);
+
+        public void Dispose()
+        {
+            _timer?.Dispose();
+        }
     }
 
     public class PfClient
