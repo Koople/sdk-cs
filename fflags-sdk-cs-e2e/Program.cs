@@ -21,11 +21,15 @@ namespace fflags_sdk_cs_e2e
 
         private static void PrintData(object? state)
         {
-            var user = new PfUser("oscar.galindo@csharp.test.com", new Dictionary<string, IPfValue> // Create user if needed
-            {
-                {"country", IPfValue.Create("spain")},
-                {"age", IPfValue.Create(18)}
-            });
+            // var user = new PfUser("oscar.galindo@csharp.test.com", new Dictionary<string, IPfValue> // Create user if needed
+            // {
+            //     {"country", IPfValue.Create("spain")},
+            //     {"age", IPfValue.Create(18)}
+            // });
+            
+            var user = PfUser.Create("oscar.galindo@csharp.test.com")
+                .With("country", "spain")
+                .With("age", 18);
 
             var single = _client.IsEnabled("someFeature", user); // Get feature flag boolean for the user
             var withoutUser = _client.IsEnabled("someFeature"); // Get feature flag boolean without any user (anonymous)

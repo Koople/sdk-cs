@@ -50,6 +50,12 @@ namespace fflags_sdk_cs
             return new PfUser(identity, pfValues);
         }
 
+        public PfUser With(string key, object value)
+        {
+            _attributes.Add(key, IPfValue.Create(value));
+            return this;
+        }
+        
         public static PfUser Anonymous() => Create($"anonymous-{Guid.NewGuid().ToString()}");
     }
 }
