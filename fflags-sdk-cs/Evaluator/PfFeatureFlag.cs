@@ -36,13 +36,20 @@ namespace fflags_sdk_cs
             Rollout = rollout;
         }
 
-        public bool Evaluate(PfStore store, PfUser user) => Targeting switch
+        public bool Evaluate(PfStore store, PfUser user)
         {
-            PfTargeting.DisabledForAll => false,
-            PfTargeting.EnabledForAll => true,
-            PfTargeting.EnabledForSomeUsers => _Evaluate(store, user),
-            _ => false
-        };
+            switch (Targeting)
+            {
+                case PfTargeting.DisabledForAll:
+                    return false;
+                case PfTargeting.EnabledForAll:
+                    return true;
+                case PfTargeting.EnabledForSomeUsers:
+                    return _Evaluate(store, user);
+                default:
+                    return false;
+            }
+        }
 
         private bool _Evaluate(PfStore store, PfUser user)
         {

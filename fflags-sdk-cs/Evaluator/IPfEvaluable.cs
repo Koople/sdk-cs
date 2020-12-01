@@ -22,6 +22,6 @@ namespace fflags_sdk_cs.Evaluator
     [JsonSubtypes.KnownSubTypeAttribute(typeof(PfSegmentNotMatchStatement), "segmentNotMatch")]
     public interface IPfEvaluable
     {
-        public bool Evaluate(PfStore store, PfUser user);
+        bool Evaluate(PfStore store, PfUser user);
     }
 }

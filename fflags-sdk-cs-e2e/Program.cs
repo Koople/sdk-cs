@@ -19,7 +19,7 @@ namespace fflags_sdk_cs_e2e
             Thread.Sleep(100000);
         }
 
-        private static void PrintData(object? state)
+        private static void PrintData(object state)
         {
             // var user = new PfUser("oscar.galindo@csharp.test.com", new Dictionary<string, IPfValue> // Create user if needed
             // {

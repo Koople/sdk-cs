@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netstandard2.1</TargetFramework>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <RootNamespace>fflags_sdk_cs</RootNamespace>
         <Company>patalabs</Company>
         <PackageId>pataflags-sdk-cs</PackageId>
         <Version>0.0.1</Version>
         <PackageVersion>0.0.9</PackageVersion>
+        <TargetFrameworks>netstandard2.1;netcoreapp2.1</TargetFrameworks>
     </PropertyGroup>
 
     <ItemGroup>

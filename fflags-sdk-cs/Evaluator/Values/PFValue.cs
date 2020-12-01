@@ -20,13 +20,20 @@ namespace fflags_sdk_cs.Evaluator.Values
         public abstract PfNumberValue AsNumber();
         public abstract PfBooleanValue AsBoolean();
 
-        public static IPfValue Create(object value) => value switch
+        public static IPfValue Create(object value)
         {
-            bool boolValue => new PfBooleanValue(boolValue),
-            string stringValue => new PfStringValue(stringValue),
-            int intValue => new PfNumberValue(intValue),
-            _ => throw new UserAttributeTypeNotSupportedException()
-        };
+            switch (value)
+            {
+                case bool boolValue:
+                    return new PfBooleanValue(boolValue);
+                case string stringValue:
+                    return new PfStringValue(stringValue);
+                case int intValue:
+                    return new PfNumberValue(intValue);
+                default:
+                    throw new UserAttributeTypeNotSupportedException();
+            }
+        }
     }
 
     public class UserAttributeTypeNotSupportedException : Exception
