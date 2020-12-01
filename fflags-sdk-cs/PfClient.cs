@@ -1,4 +1,5 @@
 using System;
+using System.Data;
 using System.Threading;
 using fflags_sdk_cs.Evaluator;
 using fflags_sdk_cs.Infrastructure;
@@ -67,6 +68,7 @@ namespace fflags_sdk_cs
 
         public static PfClient Initialize(string apiKey, int pollingInterval = 60)
         {
+            if(string.IsNullOrEmpty(apiKey)) throw new NoNullAllowedException("ApiKey can not be null or empty");
             var service = new PfClientService(apiKey, pollingInterval);
             return new PfClient(service);
         }
