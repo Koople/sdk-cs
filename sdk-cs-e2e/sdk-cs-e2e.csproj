@@ -8,6 +8,7 @@
         <PackageVersion>0.1.0</PackageVersion>
         <Authors>Koople.io</Authors>
         <PackageProjectUrl>https://koople.io</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/Koople/sdk-cs.git</RepositoryUrl>
     </PropertyGroup>
 
     <ItemGroup>

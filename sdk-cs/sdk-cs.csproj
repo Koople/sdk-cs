@@ -12,6 +12,7 @@
         <Authors>Koople.io</Authors>
         <PackageProjectUrl>https://koople.io</PackageProjectUrl>
         <Product>koople-sdk</Product>
+        <RepositoryUrl>https://github.com/Koople/sdk-cs.git</RepositoryUrl>
     </PropertyGroup>
 
     <ItemGroup>
