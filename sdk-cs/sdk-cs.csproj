@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <RootNamespace>Koople.Sdk</RootNamespace>
+        <Company>Patalabs</Company>
+        <PackageId>koople-sdk</PackageId>
+        <Version>0.1.0</Version>
+        <PackageVersion>0.1.0</PackageVersion>
+        <TargetFrameworks>netstandard2.1;netcoreapp2.1</TargetFrameworks>
+        <AssemblyName>koople-sdk</AssemblyName>
+        <Authors>Koople.io</Authors>
+        <PackageProjectUrl>https://koople.io</PackageProjectUrl>
+        <Product>koople-sdk</Product>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="JsonSubTypes" Version="1.8.0" />
+      <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    </ItemGroup>
+
+</Project>

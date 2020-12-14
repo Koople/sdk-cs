@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <RootNamespace>Koople.Sdk.E2E</RootNamespace>
+        <TargetFrameworks>netcoreapp2.1;netcoreapp3.1</TargetFrameworks>
+        <AssemblyName>sdk-cs-e2e</AssemblyName>
+        <PackageVersion>0.1.0</PackageVersion>
+        <Authors>Koople.io</Authors>
+        <PackageProjectUrl>https://koople.io</PackageProjectUrl>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\sdk-cs\sdk-cs.csproj" />
+    </ItemGroup>
+
+</Project>
