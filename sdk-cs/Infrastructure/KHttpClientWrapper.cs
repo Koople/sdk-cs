@@ -16,7 +16,7 @@ namespace Koople.Sdk.Infrastructure
 
     public class KHttpClientWrapper
     {
-        private static readonly Uri SdkApiUrl = new Uri("https://sdk.pataflags.com/proxy/server/initialize");
+        private static readonly Uri SdkApiUrl = new Uri("https://sdk.koople.io/proxy/server/initialize");
 
         private readonly HttpClient _httpClient;
 
