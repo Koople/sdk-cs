@@ -1,8 +1,10 @@
 using System.Collections.Generic;
-using Koople.Sdk;
-using Koople.Sdk.Evaluator.Statements;
-using Koople.Sdk.Values;
 using FluentAssertions;
+using Koople.Sdk.Evaluator;
+using Koople.Sdk.Evaluator.Rollouts;
+using Koople.Sdk.Evaluator.Rules;
+using Koople.Sdk.Evaluator.Statements;
+using Koople.Sdk.Evaluator.Values;
 using Koople.Sdk.Test.Evaluator;
 using Xunit;
 

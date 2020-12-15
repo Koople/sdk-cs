@@ -1,5 +1,5 @@
-using Koople.Sdk.Values;
 using FluentAssertions;
+using Koople.Sdk.Evaluator.Values;
 using Xunit;
 
 namespace Koople.Sdk.Test.Values

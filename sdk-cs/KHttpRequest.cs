@@ -1,5 +1,3 @@
-using System;
-
 namespace Koople.Sdk
 {
     public class KHttpRequest

@@ -1,6 +1,4 @@
-using Koople.Sdk.Evaluator.Statements;
-
-namespace Koople.Sdk.Statements
+namespace Koople.Sdk.Evaluator.Statements
 {
     public class KIsFalsyStatement : KIsTruthyStatement
     {

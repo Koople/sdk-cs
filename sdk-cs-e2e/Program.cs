@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
-using Koople.Sdk;
-using Koople.Sdk.Evaluator.Values;
+using Koople.Sdk.Evaluator;
 using Newtonsoft.Json;
 
 namespace Koople.Sdk.E2E

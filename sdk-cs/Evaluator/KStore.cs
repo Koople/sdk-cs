@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using Koople.Sdk.Evaluator;
 using Koople.Sdk.Infrastructure;
 
-namespace Koople.Sdk
+namespace Koople.Sdk.Evaluator
 {
     public abstract class KStore
     {

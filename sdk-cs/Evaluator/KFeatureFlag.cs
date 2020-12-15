@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using Koople.Sdk.Evaluator.Rollouts;
+using Koople.Sdk.Evaluator.Rules;
 
-namespace Koople.Sdk
+namespace Koople.Sdk.Evaluator
 {
     public enum KTargeting
     {

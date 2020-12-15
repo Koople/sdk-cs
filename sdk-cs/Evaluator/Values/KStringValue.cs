@@ -1,6 +1,4 @@
-using Koople.Sdk.Evaluator.Values;
-
-namespace Koople.Sdk.Values
+namespace Koople.Sdk.Evaluator.Values
 {
     public class KStringValue : KValue<string>
     {

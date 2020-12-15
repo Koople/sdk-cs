@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using Koople.Sdk.Evaluator;
 
-namespace Koople.Sdk
+namespace Koople.Sdk.Evaluator.Rules
 {
     public class KSegmentRule
     {

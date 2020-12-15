@@ -2,7 +2,7 @@ using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Koople.Sdk
+namespace Koople.Sdk.Evaluator.Rollouts
 {
     public class KPercentageRollout
     {

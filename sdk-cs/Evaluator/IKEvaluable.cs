@@ -1,6 +1,5 @@
 using JsonSubTypes;
 using Koople.Sdk.Evaluator.Statements;
-using Koople.Sdk.Statements;
 using Newtonsoft.Json;
 
 namespace Koople.Sdk.Evaluator

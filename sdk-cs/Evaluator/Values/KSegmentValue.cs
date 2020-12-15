@@ -1,4 +1,4 @@
-namespace Koople.Sdk.Values
+namespace Koople.Sdk.Evaluator.Values
 {
     public class KSegmentValue : KStringValue
     {

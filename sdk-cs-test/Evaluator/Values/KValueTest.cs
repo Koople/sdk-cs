@@ -1,5 +1,4 @@
 using Koople.Sdk.Evaluator.Values;
-using Koople.Sdk.Values;
 using Xunit;
 
 namespace Koople.Sdk.Test.Evaluator.Values

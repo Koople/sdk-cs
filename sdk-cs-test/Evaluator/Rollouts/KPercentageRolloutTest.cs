@@ -1,5 +1,5 @@
-using Koople.Sdk;
 using FluentAssertions;
+using Koople.Sdk.Evaluator.Rollouts;
 using Xunit;
 
 namespace Koople.Sdk.Test.Rollouts

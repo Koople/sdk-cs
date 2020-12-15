@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Koople.Sdk.Evaluator.Values;
-using Koople.Sdk.Values;
 
-namespace Koople.Sdk
+namespace Koople.Sdk.Evaluator
 {
     public class KUserAttribute
     {
