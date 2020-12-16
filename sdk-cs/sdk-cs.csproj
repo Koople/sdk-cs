@@ -5,8 +5,8 @@
         <RootNamespace>Koople.Sdk</RootNamespace>
         <Company>Patalabs</Company>
         <PackageId>koople-sdk</PackageId>
-        <Version>0.1.0</Version>
-        <PackageVersion>0.1.0</PackageVersion>
+        <Version>0.1.1</Version>
+        <PackageVersion>0.1.1</PackageVersion>
         <TargetFrameworks>netstandard2.1;netcoreapp2.1</TargetFrameworks>
         <AssemblyName>koople-sdk</AssemblyName>
         <Authors>Koople.io</Authors>
