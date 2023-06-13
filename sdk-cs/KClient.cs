@@ -43,8 +43,7 @@ namespace Koople.Sdk
             _timer?.Dispose();
         }
     }
-
-    public class KClient
+    public class KClient : IKClient
     {
         private readonly KClientService _clientService;
 

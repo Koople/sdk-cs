@@ -7,7 +7,7 @@ namespace Koople.Sdk.E2E
 {
     class Program
     {
-        private static KClient _client;
+        private static IKClient _client;
 
         static void Main(string[] args)
         {
