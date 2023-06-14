@@ -1,52 +1,49 @@
 using System.Collections.Generic;
-using Koople.Sdk;
-using Koople.Sdk.Evaluator;
 using FluentAssertions;
-using Koople.Sdk.Test.Evaluator;
+using Koople.Sdk.Evaluator;
 using Xunit;
 
-namespace Koople.Sdk.Test
+namespace Koople.Sdk.Test.Evaluator;
+
+public class KEvaluatorTest
 {
-    public class KEvaluatorTest
+    [Fact]
+    public void Features_evaluation()
     {
-        [Fact]
-        public void Features_evaluation()
+        var sut = KEvaluator.Create(Fixture.Store);
+
+        var result = sut.Evaluate(Fixture.TestUser);
+
+        var expected = new KEvaluationResult(new Dictionary<string, bool>
         {
-            var sut = KEvaluator.Create(Fixture.Store);
-
-            var result = sut.Evaluate(Fixture.TestUser);
-
-            var expected = new KEvaluationResult(new Dictionary<string, bool>
-            {
-                {"disabledForAll", false},
-                {"enabledForTestUser", true},
-                {"enabledForOtherUser", false},
-                {"enabledForSpainAdults", true},
-                {"enabledForEeuuAdults", false},
-                {"enabledForAll", true},
-            });
+            {"disabledForAll", false},
+            {"enabledForTestUser", true},
+            {"enabledForOtherUser", false},
+            {"enabledForSpainAdults", true},
+            {"enabledForEeuuAdults", false},
+            {"enabledForAll", true},
+        });
             
-            result.Should().BeEquivalentTo(expected);
-        }
+        result.Should().BeEquivalentTo(expected);
+    }
         
-        [Fact]
-        public void Feature_false_evaluation()
-        {
-            var sut = KEvaluator.Create(Fixture.Store);
+    [Fact]
+    public void Feature_false_evaluation()
+    {
+        var sut = KEvaluator.Create(Fixture.Store);
 
-            var result = sut.Evaluate("disabledForAll", Fixture.TestUser);
+        var result = sut.Evaluate("disabledForAll", Fixture.TestUser);
 
-            result.Should().BeFalse();
-        }
+        result.Should().BeFalse();
+    }
         
-        [Fact]
-        public void Feature_true_evaluation()
-        {
-            var sut = KEvaluator.Create(Fixture.Store);
+    [Fact]
+    public void Feature_true_evaluation()
+    {
+        var sut = KEvaluator.Create(Fixture.Store);
 
-            var result = sut.Evaluate("enabledForAll", Fixture.TestUser);
+        var result = sut.Evaluate("enabledForAll", Fixture.TestUser);
 
-            result.Should().BeTrue();
-        }
+        result.Should().BeTrue();
     }
 }

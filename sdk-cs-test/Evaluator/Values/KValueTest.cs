@@ -1,26 +1,25 @@
 using Koople.Sdk.Evaluator.Values;
 using Xunit;
 
-namespace Koople.Sdk.Test.Evaluator.Values
+namespace Koople.Sdk.Test.Evaluator.Values;
+
+public class KValueTest
 {
-    public class KValueTest
+    [Fact]
+    public void Boolean_Value()
     {
-        [Fact]
-        public void Boolean_Value()
-        {
-            Assert.IsType<KBooleanValue>(IKValue.Create(true));
-        }
+        Assert.IsType<KBooleanValue>(IKValue.Create(true));
+    }
         
-        [Fact]
-        public void String_Value()
-        {
-            Assert.IsType<KStringValue>(IKValue.Create("abc"));
-        }
+    [Fact]
+    public void String_Value()
+    {
+        Assert.IsType<KStringValue>(IKValue.Create("abc"));
+    }
         
-        [Fact]
-        public void Number_Value()
-        {
-            Assert.IsType<KNumberValue>(IKValue.Create(1));
-        }
+    [Fact]
+    public void Number_Value()
+    {
+        Assert.IsType<KNumberValue>(IKValue.Create(1));
     }
 }

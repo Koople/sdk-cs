@@ -7,12 +7,12 @@
         <PackageId>koople-sdk</PackageId>
         <Version>0.1.1</Version>
         <PackageVersion>0.1.1</PackageVersion>
-        <TargetFrameworks>netstandard2.1;netcoreapp2.1</TargetFrameworks>
         <AssemblyName>koople-sdk</AssemblyName>
         <Authors>Koople.io</Authors>
         <PackageProjectUrl>https://koople.io</PackageProjectUrl>
         <Product>koople-sdk</Product>
         <RepositoryUrl>https://github.com/Koople/sdk-cs.git</RepositoryUrl>
+        <TargetFramework>net6.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>

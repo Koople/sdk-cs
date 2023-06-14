@@ -4,62 +4,61 @@ using System.Runtime.Serialization;
 using Koople.Sdk.Evaluator.Rollouts;
 using Koople.Sdk.Evaluator.Rules;
 
-namespace Koople.Sdk.Evaluator
+namespace Koople.Sdk.Evaluator;
+
+public enum KTargeting
 {
-    public enum KTargeting
+    [EnumMember(Value = "DISABLED_FOR_ALL")]
+    DisabledForAll,
+
+    [EnumMember(Value = "ENABLED_FOR_SOME_USERS")]
+    EnabledForSomeUsers,
+
+    [EnumMember(Value = "ENABLED_FOR_ALL")]
+    EnabledForAll
+}
+
+public class KFeatureFlag
+{
+    public readonly string Key;
+    public readonly KTargeting Targeting;
+    public readonly IEnumerable<string> Identities;
+    public readonly IEnumerable<KInlineRule> Rules;
+    public readonly bool EnableRollout;
+    public readonly KPercentageRollout Rollout;
+
+    public KFeatureFlag(string key, KTargeting targeting, IEnumerable<string> identities,
+        IEnumerable<KInlineRule> rules, bool enableRollout, KPercentageRollout rollout)
     {
-        [EnumMember(Value = "DISABLED_FOR_ALL")]
-        DisabledForAll,
-
-        [EnumMember(Value = "ENABLED_FOR_SOME_USERS")]
-        EnabledForSomeUsers,
-
-        [EnumMember(Value = "ENABLED_FOR_ALL")]
-        EnabledForAll
+        Key = key;
+        Targeting = targeting;
+        Identities = identities;
+        Rules = rules;
+        EnableRollout = enableRollout;
+        Rollout = rollout;
     }
 
-    public class KFeatureFlag
+    public bool Evaluate(KStore store, KUser user)
     {
-        public readonly string Key;
-        public readonly KTargeting Targeting;
-        public readonly IEnumerable<string> Identities;
-        public readonly IEnumerable<KInlineRule> Rules;
-        public readonly bool EnableRollout;
-        public readonly KPercentageRollout Rollout;
-
-        public KFeatureFlag(string key, KTargeting targeting, IEnumerable<string> identities,
-            IEnumerable<KInlineRule> rules, bool enableRollout, KPercentageRollout rollout)
+        switch (Targeting)
         {
-            Key = key;
-            Targeting = targeting;
-            Identities = identities;
-            Rules = rules;
-            EnableRollout = enableRollout;
-            Rollout = rollout;
+            case KTargeting.DisabledForAll:
+                return false;
+            case KTargeting.EnabledForAll:
+                return true;
+            case KTargeting.EnabledForSomeUsers:
+                return _Evaluate(store, user);
+            default:
+                return false;
         }
+    }
 
-        public bool Evaluate(KStore store, KUser user)
-        {
-            switch (Targeting)
-            {
-                case KTargeting.DisabledForAll:
-                    return false;
-                case KTargeting.EnabledForAll:
-                    return true;
-                case KTargeting.EnabledForSomeUsers:
-                    return _Evaluate(store, user);
-                default:
-                    return false;
-            }
-        }
+    private bool _Evaluate(KStore store, KUser user)
+    {
+        if (Identities.Contains(user.GetIdentity())) return true;
+        if (EnableRollout && !Rollout.Evaluate(Key + user.GetIdentity())) return false;
+        if (EnableRollout && Rules.ToList().Count == 0) return true;
 
-        private bool _Evaluate(KStore store, KUser user)
-        {
-            if (Identities.Contains(user.GetIdentity())) return true;
-            if (EnableRollout && !Rollout.Evaluate(Key + user.GetIdentity())) return false;
-            if (EnableRollout && Rules.ToList().Count == 0) return true;
-
-            return Rules.Any(rule => rule.Evaluate(store, user));
-        }
+        return Rules.Any(rule => rule.Evaluate(store, user));
     }
 }

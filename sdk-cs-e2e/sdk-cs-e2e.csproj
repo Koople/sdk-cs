@@ -3,12 +3,12 @@
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <RootNamespace>Koople.Sdk.E2E</RootNamespace>
-        <TargetFrameworks>netcoreapp2.1;netcoreapp3.1</TargetFrameworks>
         <AssemblyName>sdk-cs-e2e</AssemblyName>
         <PackageVersion>0.1.0</PackageVersion>
         <Authors>Koople.io</Authors>
         <PackageProjectUrl>https://koople.io</PackageProjectUrl>
         <RepositoryUrl>https://github.com/Koople/sdk-cs.git</RepositoryUrl>
+        <TargetFramework>net6.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>

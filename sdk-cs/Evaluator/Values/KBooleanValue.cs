@@ -1,27 +1,26 @@
-namespace Koople.Sdk.Evaluator.Values
+namespace Koople.Sdk.Evaluator.Values;
+
+public class KBooleanValue : KValue<bool>
 {
-    public class KBooleanValue : KValue<bool>
+    public KBooleanValue(bool value) : base(value)
     {
-        public KBooleanValue(bool value) : base(value)
-        {
-        }
+    }
         
-        public static KBooleanValue True() {
-            return new KBooleanValue(true);
-        }
+    public static KBooleanValue True() {
+        return new KBooleanValue(true);
+    }
 
-        public static KBooleanValue False() {
-            return new KBooleanValue(false);
-        }
+    public static KBooleanValue False() {
+        return new KBooleanValue(false);
+    }
 
-        public bool IsTruthy()
-        {
-            return Value;
-        }
+    public bool IsTruthy()
+    {
+        return Value;
+    }
 
-        public bool IsFalsy()
-        {
-            return !Value;
-        }
+    public bool IsFalsy()
+    {
+        return !Value;
     }
 }

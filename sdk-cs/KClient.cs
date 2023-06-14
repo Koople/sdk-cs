@@ -4,72 +4,71 @@ using System.Threading;
 using Koople.Sdk.Evaluator;
 using Koople.Sdk.Infrastructure;
 
-namespace Koople.Sdk
+namespace Koople.Sdk;
+
+public class KClientService : IDisposable
 {
-    public class KClientService : IDisposable
+    private readonly string _apiKey;
+    private readonly Timer _timer;
+    private KEvaluator _evaluator;
+
+    public KClientService(string apiKey, int pollingInterval = 60)
     {
-        private readonly string _apiKey;
-        private readonly Timer _timer;
-        private KEvaluator _evaluator;
-
-        public KClientService(string apiKey, int pollingInterval = 60)
-        {
-            _apiKey = apiKey;
-            _timer = new Timer(FetchStore, null, TimeSpan.Zero, TimeSpan.FromSeconds(pollingInterval));
-            _evaluator = KEvaluator.Create(KInMemoryStore.Empty());
-        }
-
-        private async void FetchStore(object state)
-        {
-            var initializeRequest = new KHttpRequest(_apiKey);
-            var httpClient = new KHttpClientWrapper();
-            var serverInitResponse = await httpClient.Get<KServerInitializeResponseDto>(initializeRequest);
-            _evaluator = KEvaluator.Create(KInMemoryStore.FromServer(serverInitResponse));
-        }
-
-        public KEvaluationResult EvaluatedFeaturesForUser(KUser user) => _evaluator.Evaluate(user);
-
-        public bool IsEnabled(string feature, KUser user) => _evaluator.Evaluate(feature, user);
-        public bool IsEnabled(string feature) => _evaluator.Evaluate(feature, KUser.Anonymous());
-
-        public string ValueOf(string remoteConfig, KUser user, string defaultValue) =>
-            _evaluator.ValueOf(remoteConfig, user, defaultValue);
-        
-        public string ValueOf(string remoteConfig, string defaultValue) =>
-            _evaluator.ValueOf(remoteConfig, KUser.Anonymous(), defaultValue);
-
-        public void Dispose()
-        {
-            _timer?.Dispose();
-        }
+        _apiKey = apiKey;
+        _timer = new Timer(FetchStore, null, TimeSpan.Zero, TimeSpan.FromSeconds(pollingInterval));
+        _evaluator = KEvaluator.Create(KInMemoryStore.Empty());
     }
-    public class KClient : IKClient
+
+    private async void FetchStore(object state)
     {
-        private readonly KClientService _clientService;
+        var initializeRequest = new KHttpRequest(_apiKey);
+        var httpClient = new KHttpClientWrapper();
+        var serverInitResponse = await httpClient.Get<KServerInitializeResponseDto>(initializeRequest);
+        _evaluator = KEvaluator.Create(KInMemoryStore.FromServer(serverInitResponse));
+    }
 
-        private KClient(KClientService clientService)
-        {
-            _clientService = clientService;
-        }
+    public KEvaluationResult EvaluatedFeaturesForUser(KUser user) => _evaluator.Evaluate(user);
 
-        public bool IsEnabled(string feature, KUser user) => _clientService.IsEnabled(feature, user);
+    public bool IsEnabled(string feature, KUser user) => _evaluator.Evaluate(feature, user);
+    public bool IsEnabled(string feature) => _evaluator.Evaluate(feature, KUser.Anonymous());
+
+    public string ValueOf(string remoteConfig, KUser user, string defaultValue) =>
+        _evaluator.ValueOf(remoteConfig, user, defaultValue);
         
-        public bool IsEnabled(string feature) => _clientService.IsEnabled(feature);
+    public string ValueOf(string remoteConfig, string defaultValue) =>
+        _evaluator.ValueOf(remoteConfig, KUser.Anonymous(), defaultValue);
 
-        public KEvaluationResult EvaluatedFeaturesForUser(KUser user) =>
-            _clientService.EvaluatedFeaturesForUser(user);
+    public void Dispose()
+    {
+        _timer?.Dispose();
+    }
+}
+public class KClient : IKClient
+{
+    private readonly KClientService _clientService;
 
-        public string ValueOf(string remoteConfig, KUser user, string defaultValue = "") =>
-            _clientService.ValueOf(remoteConfig, user, defaultValue);
+    private KClient(KClientService clientService)
+    {
+        _clientService = clientService;
+    }
+
+    public bool IsEnabled(string feature, KUser user) => _clientService.IsEnabled(feature, user);
         
-        public string ValueOf(string remoteConfig, string defaultValue = "") =>
-            _clientService.ValueOf(remoteConfig, defaultValue);
+    public bool IsEnabled(string feature) => _clientService.IsEnabled(feature);
 
-        public static KClient Initialize(string apiKey, int pollingInterval = 60)
-        {
-            if(string.IsNullOrEmpty(apiKey)) throw new NoNullAllowedException("ApiKey can not be null or empty");
-            var service = new KClientService(apiKey, pollingInterval);
-            return new KClient(service);
-        }
+    public KEvaluationResult EvaluatedFeaturesForUser(KUser user) =>
+        _clientService.EvaluatedFeaturesForUser(user);
+
+    public string ValueOf(string remoteConfig, KUser user, string defaultValue = "") =>
+        _clientService.ValueOf(remoteConfig, user, defaultValue);
+        
+    public string ValueOf(string remoteConfig, string defaultValue = "") =>
+        _clientService.ValueOf(remoteConfig, defaultValue);
+
+    public static KClient Initialize(string apiKey, int pollingInterval = 60)
+    {
+        if(string.IsNullOrEmpty(apiKey)) throw new NoNullAllowedException("ApiKey can not be null or empty");
+        var service = new KClientService(apiKey, pollingInterval);
+        return new KClient(service);
     }
 }

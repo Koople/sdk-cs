@@ -2,20 +2,19 @@ using FluentAssertions;
 using Koople.Sdk.Evaluator.Rollouts;
 using Xunit;
 
-namespace Koople.Sdk.Test.Rollouts
+namespace Koople.Sdk.Test.Evaluator.Rollouts;
+
+public class KPercentageRolloutTest
 {
-    public class KPercentageRolloutTest
+    [Fact]
+    public void true_rollout()
     {
-        [Fact]
-        public void true_rollout()
-        {
-            KPercentageRollout.Create(50).Evaluate("a").Should().BeTrue();
-        }
+        KPercentageRollout.Create(50).Evaluate("a").Should().BeTrue();
+    }
         
-        [Fact]
-        public void false_rollout()
-        {
-            KPercentageRollout.Create(50).Evaluate("A").Should().BeFalse();
-        }
+    [Fact]
+    public void false_rollout()
+    {
+        KPercentageRollout.Create(50).Evaluate("A").Should().BeFalse();
     }
 }

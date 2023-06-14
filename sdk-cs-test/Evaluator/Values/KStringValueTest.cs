@@ -2,7 +2,7 @@ using FluentAssertions;
 using Koople.Sdk.Evaluator.Values;
 using Xunit;
 
-namespace Koople.Sdk.Test.Values
+namespace Koople.Sdk.Test.Evaluator.Values
 {
     public class KStringValueTest
     {

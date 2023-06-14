@@ -1,17 +1,16 @@
-namespace Koople.Sdk
+namespace Koople.Sdk;
+
+public class KHttpRequest
 {
-    public class KHttpRequest
+    private readonly string _apiKey;
+
+    public KHttpRequest(string apiKey)
     {
-        private readonly string _apiKey;
+        _apiKey = apiKey;
+    }
 
-        public KHttpRequest(string apiKey)
-        {
-            _apiKey = apiKey;
-        }
-
-        public string GetApiKey()
-        {
-            return _apiKey;
-        }
+    public string GetApiKey()
+    {
+        return _apiKey;
     }
 }

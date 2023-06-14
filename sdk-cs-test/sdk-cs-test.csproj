@@ -5,8 +5,6 @@
 
         <IsPackable>false</IsPackable>
 
-        <TargetFrameworks>netcoreapp2.1;netcoreapp3.1</TargetFrameworks>
-
         <AssemblyName>sdk-cs-test</AssemblyName>
 
         <PackageVersion>0.1.0</PackageVersion>
@@ -16,6 +14,8 @@
         <PackageProjectUrl>https://koople.io</PackageProjectUrl>
 
         <RepositoryUrl>https://github.com/Koople/sdk-cs.git</RepositoryUrl>
+
+        <TargetFramework>net6.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
