@@ -12,11 +12,14 @@ public class KClientService : IDisposable
     private readonly Timer _timer;
     private KEvaluator _evaluator;
 
-    public KClientService(string apiKey, int pollingInterval = 60)
+    public KClientService(string apiKey, int pollingInterval = 60) 
+        : this(apiKey, new KInMemoryStore(), pollingInterval){}
+
+    public KClientService(string apiKey, KStore store, int pollingInterval = 60)
     {
         _apiKey = apiKey;
         _timer = new Timer(FetchStore, null, TimeSpan.Zero, TimeSpan.FromSeconds(pollingInterval));
-        _evaluator = KEvaluator.Create(KInMemoryStore.Empty());
+        _evaluator = KEvaluator.Create(store.Empty());
     }
 
     private async void FetchStore(object state)
@@ -24,7 +27,7 @@ public class KClientService : IDisposable
         var initializeRequest = new KHttpRequest(_apiKey);
         var httpClient = new KHttpClientWrapper();
         var serverInitResponse = await httpClient.Get<KServerInitializeResponseDto>(initializeRequest);
-        _evaluator = KEvaluator.Create(KInMemoryStore.FromServer(serverInitResponse));
+        _evaluator = _evaluator.FromServer(serverInitResponse);
     }
 
     public KEvaluationResult EvaluatedFeaturesForUser(KUser user) => _evaluator.Evaluate(user);

@@ -13,6 +13,9 @@ public abstract class KStore
     public abstract KFeatureFlag GetFeatureFlag(string feature);
 
     public abstract KRemoteConfig GetRemoteConfig(string remoteConfig);
+
+    public abstract KStore Empty();
+    public abstract KStore FromServer(KServerInitializeResponseDto dto);
 }
 
 public class KInMemoryStore : KStore
@@ -21,6 +24,7 @@ public class KInMemoryStore : KStore
     private readonly Dictionary<string, KFeatureFlag> _featureFlags;
     private readonly Dictionary<string, KRemoteConfig> _remoteConfigs;
 
+    public KInMemoryStore(){}
     public KInMemoryStore(IEnumerable<KFeatureFlag> featureFlags, IEnumerable<KRemoteConfig> remoteConfigs,
         IEnumerable<KSegment> segments)
     {
@@ -28,6 +32,7 @@ public class KInMemoryStore : KStore
         _featureFlags = featureFlags.ToDictionary(ff => ff.Key);
         _remoteConfigs = remoteConfigs.ToDictionary(rc => rc.Key);
     }
+    
 
     public override IEnumerable<KFeatureFlag> GetFeatureFlags() => _featureFlags.Values;
 
@@ -35,9 +40,7 @@ public class KInMemoryStore : KStore
     public override KFeatureFlag GetFeatureFlag(string feature) => _featureFlags.GetValueOrDefault(feature);
     public override KRemoteConfig GetRemoteConfig(string remoteConfig) => _remoteConfigs.GetValueOrDefault(remoteConfig);
 
-    public static KStore FromServer(KServerInitializeResponseDto dto) =>
+    public override KStore FromServer(KServerInitializeResponseDto dto) =>
         new KInMemoryStore(dto.Features, dto.RemoteConfigs, dto.Segments);
-
-    public static KInMemoryStore Empty() => 
-        new KInMemoryStore(new KFeatureFlag[] {}, new KRemoteConfig[] {}, new KSegment[] {});
+    public override KInMemoryStore Empty() => new(new KFeatureFlag[] { }, new KRemoteConfig[] { }, new KSegment[] { });
 }

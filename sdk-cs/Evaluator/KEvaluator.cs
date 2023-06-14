@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Koople.Sdk.Infrastructure;
 
 namespace Koople.Sdk.Evaluator;
 
@@ -26,7 +27,8 @@ public class KEvaluator
         IEnumerable<KRemoteConfig> remoteConfigs, IEnumerable<KSegment> segments) =>
         new KEvaluator(new KInMemoryStore(featureFlags, remoteConfigs, segments));
 
-    public static KEvaluator Create(KStore store) => new KEvaluator(store);
+    public KEvaluator FromServer(KServerInitializeResponseDto dto) => new(_store.FromServer(dto)); 
+    public static KEvaluator Create(KStore store) => new(store);
 
     public KEvaluationResult Evaluate(KUser user)
     {
