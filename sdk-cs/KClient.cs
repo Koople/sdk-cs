@@ -69,9 +69,12 @@ public class KClient : IKClient
         _clientService.ValueOf(remoteConfig, defaultValue);
 
     public static KClient Initialize(string apiKey, int pollingInterval = 60)
+        => Initialize(apiKey, new KInMemoryStore(), pollingInterval);
+
+    public static KClient Initialize(string apiKey, KStore store, int pollingInterval = 60)
     {
         if(string.IsNullOrEmpty(apiKey)) throw new NoNullAllowedException("ApiKey can not be null or empty");
-        var service = new KClientService(apiKey, pollingInterval);
+        var service = new KClientService(apiKey, store, pollingInterval);
         return new KClient(service);
     }
 }
