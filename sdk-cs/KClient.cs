@@ -3,31 +3,41 @@ using System.Data;
 using System.Threading;
 using Koople.Sdk.Evaluator;
 using Koople.Sdk.Infrastructure;
+using Microsoft.Extensions.Logging;
 
 namespace Koople.Sdk;
 
 public class KClientService : IDisposable
 {
     private readonly string _apiKey;
+    private readonly ILogger<KClientService> _logger;
     private readonly Timer _timer;
     private KEvaluator _evaluator;
 
     public KClientService(string apiKey, int pollingInterval = 60) 
         : this(apiKey, new KInMemoryStore(), pollingInterval){}
 
-    public KClientService(string apiKey, KStore store, int pollingInterval = 60)
+    public KClientService(string apiKey, KStore store, int pollingInterval = 60, ILogger<KClientService>? logger = null)
     {
         _apiKey = apiKey;
+        _logger = logger;
         _timer = new Timer(FetchStore, null, TimeSpan.Zero, TimeSpan.FromSeconds(pollingInterval));
         _evaluator = KEvaluator.Create(store.Initial());
     }
 
     private async void FetchStore(object state)
     {
-        var initializeRequest = new KHttpRequest(_apiKey);
-        var httpClient = new KHttpClientWrapper();
-        var serverInitResponse = await httpClient.Get<KServerInitializeResponseDto>(initializeRequest);
-        _evaluator = _evaluator.FromServer(serverInitResponse);
+        try
+        {
+            var initializeRequest = new KHttpRequest(_apiKey);
+            var httpClient = new KHttpClientWrapper();
+            var serverInitResponse = await httpClient.Get<KServerInitializeResponseDto>(initializeRequest);
+            _evaluator = _evaluator.FromServer(serverInitResponse);    
+        }
+        catch (Exception e)
+        {
+            _logger?.LogError($"{e.Message} {e.StackTrace}");
+        }
     }
 
     public KEvaluationResult EvaluatedFeaturesForUser(KUser user) => _evaluator.Evaluate(user);
@@ -71,10 +81,10 @@ public class KClient : IKClient
     public static KClient Initialize(string apiKey, int pollingInterval = 60)
         => Initialize(apiKey, new KInMemoryStore(), pollingInterval);
 
-    public static KClient Initialize(string apiKey, KStore store, int pollingInterval = 60)
+    public static KClient Initialize(string apiKey, KStore store, int pollingInterval = 60, ILoggerFactory? loggerFactory = null)
     {
         if(string.IsNullOrEmpty(apiKey)) throw new NoNullAllowedException("ApiKey can not be null or empty");
-        var service = new KClientService(apiKey, store, pollingInterval);
+        var service = new KClientService(apiKey, store, pollingInterval, loggerFactory?.CreateLogger<KClientService>());
         return new KClient(service);
     }
 }
