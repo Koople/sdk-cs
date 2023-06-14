@@ -42,5 +42,5 @@ public class KInMemoryStore : KStore
 
     public override KStore FromServer(KServerInitializeResponseDto dto) =>
         new KInMemoryStore(dto.Features, dto.RemoteConfigs, dto.Segments);
-    public override KInMemoryStore Initial() => new(new KFeatureFlag[] { }, new KRemoteConfig[] { }, new KSegment[] { });
+    public override KStore Initial() => new KInMemoryStore(new KFeatureFlag[] { }, new KRemoteConfig[] { }, new KSegment[] { });
 }
