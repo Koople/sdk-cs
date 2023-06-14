@@ -19,7 +19,7 @@ public class KClientService : IDisposable
     {
         _apiKey = apiKey;
         _timer = new Timer(FetchStore, null, TimeSpan.Zero, TimeSpan.FromSeconds(pollingInterval));
-        _evaluator = KEvaluator.Create(store.Empty());
+        _evaluator = KEvaluator.Create(store.Initial());
     }
 
     private async void FetchStore(object state)

@@ -14,7 +14,7 @@ public abstract class KStore
 
     public abstract KRemoteConfig GetRemoteConfig(string remoteConfig);
 
-    public abstract KStore Empty();
+    public abstract KStore Initial();
     public abstract KStore FromServer(KServerInitializeResponseDto dto);
 }
 
@@ -42,5 +42,5 @@ public class KInMemoryStore : KStore
 
     public override KStore FromServer(KServerInitializeResponseDto dto) =>
         new KInMemoryStore(dto.Features, dto.RemoteConfigs, dto.Segments);
-    public override KInMemoryStore Empty() => new(new KFeatureFlag[] { }, new KRemoteConfig[] { }, new KSegment[] { });
+    public override KInMemoryStore Initial() => new(new KFeatureFlag[] { }, new KRemoteConfig[] { }, new KSegment[] { });
 }
