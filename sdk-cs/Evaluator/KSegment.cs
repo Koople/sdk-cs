@@ -6,8 +6,8 @@ namespace Koople.Sdk.Evaluator;
 
 public class KSegment
 {
-    public readonly string Key;
-    public readonly List<KSegmentRule> Rules;
+    public string Key { get; }
+    public List<KSegmentRule> Rules { get; }
 
     public KSegment(string key, List<KSegmentRule> rules)
     {

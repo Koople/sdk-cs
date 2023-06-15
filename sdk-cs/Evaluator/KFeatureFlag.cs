@@ -20,12 +20,12 @@ public enum KTargeting
 
 public class KFeatureFlag
 {
-    public readonly string Key;
-    public readonly KTargeting Targeting;
-    public readonly IEnumerable<string> Identities;
-    public readonly IEnumerable<KInlineRule> Rules;
-    public readonly bool EnableRollout;
-    public readonly KPercentageRollout Rollout;
+    public string Key { get; }
+    public KTargeting Targeting { get; }
+    public IEnumerable<string> Identities { get; }
+    public IEnumerable<KInlineRule> Rules { get; }
+    public bool EnableRollout { get; }
+    public KPercentageRollout Rollout { get; }
 
     public KFeatureFlag(string key, KTargeting targeting, IEnumerable<string> identities,
         IEnumerable<KInlineRule> rules, bool enableRollout, KPercentageRollout rollout)

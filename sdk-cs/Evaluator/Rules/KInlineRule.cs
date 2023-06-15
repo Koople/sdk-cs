@@ -5,8 +5,8 @@ namespace Koople.Sdk.Evaluator.Rules;
 
 public class KInlineRule
 {
-    public readonly int Order;
-    public readonly IEnumerable<IKEvaluable> Statements;
+    public int Order { get; }
+    public IEnumerable<IKEvaluable> Statements { get; }
 
     public KInlineRule(int order, IEnumerable<IKEvaluable> statements)
     {

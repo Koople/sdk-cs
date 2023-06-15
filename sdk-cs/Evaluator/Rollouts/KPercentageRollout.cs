@@ -6,7 +6,7 @@ namespace Koople.Sdk.Evaluator.Rollouts;
 
 public class KPercentageRollout
 {
-    private readonly int _percentage;
+    protected int Percentage { get; }
 
     public KPercentageRollout()
     {
@@ -14,13 +14,13 @@ public class KPercentageRollout
 
     private KPercentageRollout(int percentage)
     {
-        _percentage = percentage;
+        Percentage = percentage;
     }
 
     public bool Evaluate(string identifier)
     {
         var value = HashValue(identifier);
-        return _percentage >= value;
+        return Percentage >= value;
     }
 
     public static KPercentageRollout Create(int percentage)

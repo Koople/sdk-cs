@@ -5,9 +5,9 @@ namespace Koople.Sdk.Evaluator.Rules;
 
 public class KRemoteConfigRule
 {
-    public readonly IEnumerable<string> Identities;
-    public readonly IEnumerable<KInlineRule> Rules;
-    public readonly string Value;
+    public IEnumerable<string> Identities { get; }
+    public IEnumerable<KInlineRule> Rules { get; }
+    public string Value { get; }
 
     public KRemoteConfigRule(IEnumerable<string> identities, IEnumerable<KInlineRule> rules, string value)
     {

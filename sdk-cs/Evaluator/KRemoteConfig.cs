@@ -6,9 +6,9 @@ namespace Koople.Sdk.Evaluator;
 
 public class KRemoteConfig
 {
-    public readonly string Key;
-    public readonly IEnumerable<KRemoteConfigRule> Rules;
-    public readonly string DefaultValue;
+    public string Key { get; }
+    public IEnumerable<KRemoteConfigRule> Rules { get; }
+    public string DefaultValue { get; }
 
     public KRemoteConfig(string key, IEnumerable<KRemoteConfigRule> rules, string defaultValue)
     {
