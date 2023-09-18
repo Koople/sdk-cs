@@ -44,6 +44,8 @@ public class KClientService : IDisposable
 
     public bool IsEnabled(string feature, KUser user) => _evaluator.Evaluate(feature, user);
     public bool IsEnabled(string feature) => _evaluator.Evaluate(feature, KUser.Anonymous());
+    
+    public KFeaturesAndConfigs GetAllResults(KUser user) => _evaluator.GetAllResultsForUser(user);
 
     public string ValueOf(string remoteConfig, KUser user, string defaultValue) =>
         _evaluator.ValueOf(remoteConfig, user, defaultValue);
@@ -71,6 +73,8 @@ public class KClient : IKClient
 
     public KEvaluationResult EvaluatedFeaturesForUser(KUser user) =>
         _clientService.EvaluatedFeaturesForUser(user);
+    
+    
 
     public string ValueOf(string remoteConfig, KUser user, string defaultValue = "") =>
         _clientService.ValueOf(remoteConfig, user, defaultValue);

@@ -5,8 +5,8 @@
         <RootNamespace>Koople.Sdk</RootNamespace>
         <Company>Patalabs</Company>
         <PackageId>koople-sdk</PackageId>
-        <Version>0.1.4-beta</Version>
-        <PackageVersion>0.1.4-beta</PackageVersion>
+        <Version>0.1.7-beta</Version>
+        <PackageVersion>0.1.7-beta</PackageVersion>
         <AssemblyName>koople-sdk</AssemblyName>
         <Authors>Koople.io</Authors>
         <PackageProjectUrl>https://koople.io</PackageProjectUrl>

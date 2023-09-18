@@ -29,6 +29,14 @@ public class KEvaluator
 
     public KEvaluator FromServer(KServerInitializeResponseDto dto) => new(_store.FromServer(dto)); 
     public static KEvaluator Create(KStore store) => new(store);
+    
+    public KFeaturesAndConfigs GetAllResultsForUser(KUser user)
+    {
+        var evaluatedFlags = _store.GetFeatureFlags().ToDictionary(x => x.Key, flag => flag.Evaluate(_store, user));
+        var remoteConfigs = _store.GetRemoteConfigs()
+            .ToDictionary(x => x.Key, config => config.Evaluate(_store, user));
+        return new KFeaturesAndConfigs(evaluatedFlags, remoteConfigs);
+    }
 
     public KEvaluationResult Evaluate(KUser user)
     {

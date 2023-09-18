@@ -7,6 +7,8 @@ namespace Koople.Sdk.Evaluator;
 public abstract class KStore
 {
     public abstract IEnumerable<KFeatureFlag> GetFeatureFlags();
+    
+    public abstract Dictionary<string, KRemoteConfig>.ValueCollection GetRemoteConfigs();
 
     public abstract KSegment FindSegmentByKey(string key);
 
@@ -33,6 +35,7 @@ public class KInMemoryStore : KStore
         _remoteConfigs = remoteConfigs.ToDictionary(rc => rc.Key);
     }
     
+    public override Dictionary<string, KRemoteConfig>.ValueCollection GetRemoteConfigs() => _remoteConfigs.Values;
 
     public override IEnumerable<KFeatureFlag> GetFeatureFlags() => _featureFlags.Values;
 
