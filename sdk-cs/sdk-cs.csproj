@@ -1,12 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
     <PropertyGroup>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <RootNamespace>Koople.Sdk</RootNamespace>
         <Company>Patalabs</Company>
         <PackageId>koople-sdk</PackageId>
-        <Version>0.1.4</Version>
-        <PackageVersion>0.1.4</PackageVersion>
+        <Version>0.1.7-beta</Version>
+        <PackageVersion>0.1.7-beta</PackageVersion>
         <AssemblyName>koople-sdk</AssemblyName>
         <Authors>Koople.io</Authors>
         <PackageProjectUrl>https://koople.io</PackageProjectUrl>
@@ -14,11 +13,9 @@
         <RepositoryUrl>https://github.com/Koople/sdk-cs.git</RepositoryUrl>
         <TargetFramework>net6.0</TargetFramework>
     </PropertyGroup>
-
     <ItemGroup>
       <PackageReference Include="JsonSubTypes" Version="1.8.0" />
       <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
       <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     </ItemGroup>
-
 </Project>
