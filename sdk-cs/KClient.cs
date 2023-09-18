@@ -74,6 +74,7 @@ public class KClient : IKClient
     public KEvaluationResult EvaluatedFeaturesForUser(KUser user) =>
         _clientService.EvaluatedFeaturesForUser(user);
     
+    public KFeaturesAndConfigs GetAllResults(KUser user) => _clientService.GetAllResults(user);
     
 
     public string ValueOf(string remoteConfig, KUser user, string defaultValue = "") =>
