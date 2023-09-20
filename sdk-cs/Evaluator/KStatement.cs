@@ -6,8 +6,8 @@ namespace Koople.Sdk.Evaluator;
 public abstract class KStatement<T> : IKEvaluable
     where T : IKValue
 {
-    protected string Attribute { get; }
-    protected IEnumerable<T> Values { get; }
+    public string Attribute { get; }
+    public IEnumerable<T> Values { get; }
 
     protected KStatement(string attribute, IEnumerable<T> values)
     {
