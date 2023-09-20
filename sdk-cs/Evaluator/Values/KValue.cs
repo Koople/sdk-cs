@@ -41,7 +41,7 @@ public class UserAttributeTypeNotSupportedException : Exception
 
 public abstract class KValue<T> : IKValue
 {
-    protected readonly T Value;
+    public readonly T Value;
 
     protected KValue(T value)
     {

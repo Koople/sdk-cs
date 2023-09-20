@@ -6,7 +6,7 @@ namespace Koople.Sdk.Evaluator.Rollouts;
 
 public class KPercentageRollout
 {
-    protected int Percentage { get; }
+    public int Percentage { get; }
 
     public KPercentageRollout()
     {

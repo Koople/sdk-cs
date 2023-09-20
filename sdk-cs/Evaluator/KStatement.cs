@@ -9,7 +9,7 @@ public abstract class KStatement<T> : IKEvaluable
     public string Attribute { get; }
     public IEnumerable<T> Values { get; }
 
-    protected KStatement(string attribute, IEnumerable<T> values)
+    public KStatement(string attribute, IEnumerable<T> values)
     {
         Attribute = attribute;
         Values = values;
